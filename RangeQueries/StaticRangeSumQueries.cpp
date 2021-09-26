@@ -1,3 +1,12 @@
+/*
+
+~~~~~~~~~~~~~~https://cses.fi/user/72443~~~~~~~~~~~~~~
+
+Question: https://cses.fi/problemset/task/1646
+Submission: https://cses.fi/paste/55dbb376479783db2a86a7/
+*/
+
+
 #include <bits/stdc++.h>
 using namespace std;
 

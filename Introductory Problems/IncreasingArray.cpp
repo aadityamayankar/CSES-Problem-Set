@@ -1,14 +1,14 @@
 /*
-
 ~~~~~~~~~~~~~~https://cses.fi/user/72443~~~~~~~~~~~~~~
 
-Question: https://cses.fi/problemset/task/1635/
-Submission: https://cses.fi/paste/24fa00f3edb47e6e271039/
+Question: https://cses.fi/problemset/task/1094
+Submission: https://cses.fi/paste/af8c9f286ce1302f27024e/
 */
+
 
 #include <bits/stdc++.h>
 using namespace std;
-
+ 
 #define INF 1e9+5
 #define M 1000000007
 #define ll long long
@@ -27,27 +27,21 @@ using namespace std;
 #define per(i,b) gnr(i,0,b)
 #define FAST1 ios::sync_with_stdio(0);
 #define FAST2 cin.tie(0);
-
-int combinations(vt<int> c,int sum,int n){
-    vt<int> dp(sum+1);
-    dp[0] = 1;
-    rng(i,1,sum+1){
-        rng(j,1,n+1){
-            if(c[j-1]<=i){
-                dp[i] = (dp[i] + dp[i-c[j-1]]) % M;
-            }
+ 
+void solve(){
+    int n;cin>>n;
+    vt<int>nums(n);
+    rep(i,n) cin>>nums[i];
+    ll cnt = 0;
+    rep(i,n-1){
+        if(nums[i+1]<nums[i]){
+            cnt += nums[i]-nums[i+1];
+            nums[i+1] = nums[i];
         }
     }
-    return dp[sum];
+    cout<<cnt<<"\n";
 }
-
-void solve(){
-    int n,x;cin>>n>>x;
-    vt<int> c(n);
-    rep(i,n) cin>>c[i];
-    cout<<combinations(c,x,n);
-}
-
+ 
 int main(){
     FAST1
     FAST2
@@ -57,5 +51,6 @@ int main(){
     while(t--){
         solve();
     }
+ 
     return 0;
 }

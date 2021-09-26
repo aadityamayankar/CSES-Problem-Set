@@ -1,3 +1,12 @@
+/*
+
+~~~~~~~~~~~~~~https://cses.fi/user/72443~~~~~~~~~~~~~~
+
+Question: https://cses.fi/problemset/task/1647
+Submission: https://cses.fi/paste/8bc1bc05841cd0a72abe06/   
+*/
+
+
 #include <bits/stdc++.h>
 #pragma GCC optimize("O1")
 #pragma GCC optimize("O2")
