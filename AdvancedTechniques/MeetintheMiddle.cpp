@@ -1,3 +1,11 @@
+/*
+
+~~~~~~~~~~~~~~https://cses.fi/user/72443~~~~~~~~~~~~~~
+
+Question: https://cses.fi/problemset/task/1628/
+Submission: https://cses.fi/paste/9880e42ae2b484d32e63d5/
+*/
+
 #include <bits/stdc++.h>
 #pragma GCC optimize("O1")
 #pragma GCC optimize("O2")
@@ -35,7 +43,7 @@ void solve(){
     vt<ll> nums(n);
     rep(i,n) cin>>nums[i];
     vt<ll> left, right, numsl = vt<ll>(nums.begin(),nums.begin() + (n / 2)), numsr = vt<ll>(nums.begin()+(n / 2),nums.end());
-    ll m = sz(numsl), mask = 0ll, res = 0ll;
+    ll m = sz(numsl), res = 0ll;
     rep(i,1 << m){
         ll cur = 0;
         rep(j,m) if(i & (1 << j)) cur += numsl[j];

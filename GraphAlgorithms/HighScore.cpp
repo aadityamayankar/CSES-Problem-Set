@@ -1,3 +1,11 @@
+/*
+
+~~~~~~~~~~~~~~https://cses.fi/user/72443~~~~~~~~~~~~~~
+
+Question: https://cses.fi/problemset/task/1673
+Submission: https://cses.fi/paste/1e1722585777c6ca2dc475/
+*/
+
 #include <bits/stdc++.h>
 #pragma GCC optimize("O3")
 using namespace std;
