@@ -29,20 +29,43 @@ using namespace std;
 typedef pair<int,int> pi;
 typedef pair<ll,ll> pl;
 
-int rec(int n){
-    if(n == 0) return 0;
-    string s = to_string(n);
-    int cur = INT_MAX;
-    for(auto& c : s){
-        cur = min(cur,1 + rec(n - c - '0'));
+int dp[1002][(1<<10)+1];
+
+void getMasks(int cur_mask,int i,int n,int temp_mask,vt<int>& masks){
+    if(i == n + 1) {
+        masks.push_back(temp_mask);
+        return;
     }
-    return cur;
+    if((cur_mask & (1 << i)) != 0)
+        getMasks(cur_mask,i+1,n,temp_mask,masks);
+    if(i != n){
+        if((cur_mask & (1 << i)) == 0 && (cur_mask & (1 << (i + 1))) == 0)
+            getMasks(cur_mask,i+2,n,temp_mask,masks);
+    }
+    if((cur_mask & (1 << i)) == 0) 
+        getMasks(cur_mask,i+1,n,temp_mask + (1 << i),masks);
+}
+
+int rec(int col,int mask,int n,int m){
+    if(col == m + 1){
+        if(mask == 0) return 1;
+        return 0;
+    }
+    if(dp[col][mask] != -1) return dp[col][mask];
+    vt<int> masks;
+    getMasks(mask,1,n,0,masks);
+    int cur = 0;
+    each(next_mask,masks){
+        cur = (cur + rec(col+1,next_mask,n,m)) % MOD;
+    }
+    return dp[col][mask] = cur;
 }
 
 void solve(){
-    int n;cin>>n;
-    // int res = rec(n);
-    // cout<<res<<'\n';
+    memset(dp,-1,sizeof dp);
+    int n,m;cin>>n>>m;
+    int res = rec(1,0,n,m);
+    cout<<res<<'\n';
 }
 
 int main(){
