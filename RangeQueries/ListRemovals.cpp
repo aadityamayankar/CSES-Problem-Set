@@ -1,9 +1,9 @@
 /*
-
+ 
 ~~~~~~~~~~~~~~https://cses.fi/user/72443~~~~~~~~~~~~~~
-
+ 
 Question: https://cses.fi/problemset/task/1749/
-Submission: https://cses.fi/paste/3f44ab8b783de25d2e9536/
+Submission: https://cses.fi/paste/675d2ad14e518c432e9560/
 */
 
 
@@ -39,51 +39,35 @@ typedef pair<int,int> pi;
 typedef pair<ll,ll> pl;
 
 int n;
-vt<int> nums,st,present;
+vt<int> nums,bit,present;
 
-void build(int v,int l,int r){
-    if(l == r) st[v] = present[l];
-    else{
-        int m = l + ((r - l) >> 1);
-        build(v<<1,l,m), build((v<<1)+1,m+1,r);
-        st[v] = st[v<<1] + st[(v<<1)+1];
-    }
+void update(int x,int val){
+    for(;x<n;x+=(x&-x)) bit[x] += val;
 }
 
-void update(int v,int l,int r,int i){
-    if(l == r) st[v] = 0;
-    else{
-        int m = l + ((r - l) >> 1);
-        if(i <= m) update(v<<1,l,m,i);
-        else update((v<<1)+1,m+1,r,i);
-        st[v] = st[v<<1] + st[(v<<1)+1];
-    }
-}
-
-int query(int v,int l,int r,int ql,int qr){
-    if(r < ql || l > qr) return 0;
-    if(l >= ql && r <= qr) return st[v];
-    int m = l + ((r - l) >> 1);
-    return query(v<<1,l,m,ql,qr) + query((v<<1)+1,m+1,r,ql,qr);
+int query(int x){
+    int sum = 0;
+    for(;x>0;x-=(x&-x)) sum += bit[x];
+    return sum;
 }
 
 int bs(int q){
-    int l = 0, r = n - 1, res = -1;
+    int l = 1, r = n, res = -1;
     while(l <= r){
         int m = l + ((r - l) >> 1);
-        if(query(1,0,n-1,0,m) >= q) res = m, r = m - 1;
+        if(query(m) >= q) res = m, r = m - 1;
         else l = m + 1;
     }
-    update(1,0,n-1,res);
+    update(res,-present[res]);
     return nums[res];
 }
 
 void solve(){
     cin>>n;
-    nums.resize(n), st.resize((n<<2)+1), present.resize(n,1);
-    rep(i,n) cin>>nums[i];
-    build(1,0,n-1);
-    rep(i,n){
+    n++;
+    nums.resize(n), bit.resize(n), present.resize(n,1);
+    rng(i,1,n) cin>>nums[i], update(i,1);
+    rep(i,n-1){
         int q;cin>>q;
         cout<<bs(q)<<' ';
     }
