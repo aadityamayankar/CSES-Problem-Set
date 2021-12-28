@@ -60,7 +60,6 @@ void pushdown(ll v, ll l, ll m, ll r){
 		st[v<<1|1].val += (r-m) * st[v].lzAdd;
 		st[v].lzAdd = 0;
 	}
-	return;
 }
 
 void build(ll v,ll l,ll r){
@@ -89,10 +88,10 @@ void add(ll v, ll l, ll r, ll a, ll b, ll val){
 		else st[v].lzSet += val;
 		return;
 	}
-	ll mid = (l+r)>>1;
-	pushdown(v,l,mid,r);
-	add(v<<1,l,mid,a,b,val);
-	add(v<<1|1,mid+1,r,a,b,val);
+	ll m = (l+r)>>1;
+	pushdown(v,l,m,r);
+	add(v<<1,l,m,a,b,val);
+	add(v<<1|1,m+1,r,a,b,val);
 	pushup(v);
 	return;
 }
@@ -105,11 +104,10 @@ void upd(ll v, ll l, ll r, ll a, ll b, ll val){
 		st[v].lzSet = val;
 		return;
 	}
-	ll mid = (l+r)>>1;
-	pushdown(v,l,mid,r);
-	upd(v<<1,l,mid,a,b,val), upd(v<<1|1,mid+1,r,a,b,val);
+	ll m = (l+r)>>1;
+	pushdown(v,l,m,r);
+	upd(v<<1,l,m,a,b,val), upd(v<<1|1,m+1,r,a,b,val);
 	pushup(v);
-	return;
 }
 
 void solve(){
