@@ -25,7 +25,28 @@ typedef pair<int,int> pi;
 typedef pair<ll,ll> pl;
 
 void solve(){
-    
+    ll n,k;cin>>n>>k;
+    vt<ll> a(n);
+    rep(i,n)cin>>a[i];
+    ll l = 0, r = accumulate(all(a),0LL);
+
+    function<bool(ll)> go = [&](ll x)->bool{
+        ll cnt = 0, cur = 0;
+        rep(i,n){
+            if (a[i] > x) return 0;
+			if (cur + a[i] > x) ++cnt, cur = 0;
+			cur += a[i];
+        }
+        if(cur) cnt++;
+        return cnt <= k;
+    };
+    ll res;
+    while(l <= r){
+        ll m = l + ((r - l) >> 1);
+        if(go(m)) res = m, r = m - 1;
+        else l = m + 1;
+    }
+    cout<<res<<'\n';
 }
 
 int main(){
@@ -37,7 +58,7 @@ int main(){
     IOS
     
     int t = 1;
-    cin>>t;
+    // cin>>t;
     while(t--){
         solve();
     }

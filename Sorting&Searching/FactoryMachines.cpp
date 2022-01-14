@@ -2,7 +2,7 @@
 #pragma GCC optimize("O2")
 #pragma GCC target("avx,avx2,fma")
 using namespace std;
-
+ 
 #define INF 1e9+5
 #define MOD 1000000007
 #define ll long long
@@ -23,11 +23,26 @@ using namespace std;
 #define IOS ios::sync_with_stdio(0);cin.tie(0);
 typedef pair<int,int> pi;
 typedef pair<ll,ll> pl;
-
-void solve(){
-    
+ 
+bool check(ll m,vt<ll>& a,ll k){
+    ll sum = 0;
+    each(i,a) sum += m/i;
+    return sum >= k;
 }
-
+ 
+void solve(){
+    ll n,k;cin>>n>>k;
+    vt<ll> a(n);
+    rep(i,n) cin>>a[i];
+    ll l = 0, r = *min_element(all(a))*k;
+    while(l<r){
+        ll m = l+((r - l)>>1);
+        if(check(m,a,k)) r = m;
+        else l = m+1;
+    }
+    cout<<r<<'\n';
+}
+ 
 int main(){
     #ifndef ONLINE_JUDGE
     freopen("input.txt", "r" , stdin);
@@ -37,7 +52,7 @@ int main(){
     IOS
     
     int t = 1;
-    cin>>t;
+    // cin>>t;
     while(t--){
         solve();
     }
